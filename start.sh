@@ -13,58 +13,11 @@ source $basedir/lib/properties.sh
 zc_log INFO "start"
 
 export startPath=$(prop 'startPath')
-export SHA256SUMS=$(prop 'SHA256SUMS')
-export findL=$(find ${startPath})
-export fileL
-export listN=0
-export SHA256SUMSFile="$basedir/${SHA256SUMS}"
+export SHA256SUMS=`date +%Y%m%d%H%M%S`".sha256"
+export SHA256SUMSFile="$basedir/sha256sum/${SHA256SUMS}"
 
-zc_log INFO "start 2"
+mkdir -p $basedir/sha256sum
 
-for listI in $findL ;
-do
-    notExistsFile=0
-
-    while read notExistsFileI ; do
-
-        pat="${notExistsFileI}$"
-    
-        if [[ $listI =~ $pat ]]; then
-            notExistsFile=$[ $notExistsFile + 1 ]
-        fi
-
-    done < $notExistsFileL
-
-    if [ -n "$listI" ] && [ $notExistsFile == 0 ]; then
-        fileL[$listN]="$listI"
-        listN=$[ $listN + 1 ]
-
-    fi
-done
-
-zc_log INFO "start 3. check ${SHA256SUMSFile}"
-
-touch "${SHA256SUMSFile}"
-
-for fileI in ${fileL[@]}
-do
-
-    if [ -f "${fileI}" ]; then
-
-        a=`grep -c "$fileI" $SHA256SUMSFile`
-
-        if [ "${a}" == "0" ];then
-            sha256sum ${fileI} >> "${SHA256SUMSFile}"
-            if [ $? -ne 0 ]; then
-                zc_log ERROR ""
-            fi
-        fi 
-        
-    else
-        zc_log WARN "不存在:${fileI}"
-    fi
-    
-done
-
+find ${startPath} | xargs sha256sum >> "${SHA256SUMSFile}"
 
 zc_log INFO "finish"

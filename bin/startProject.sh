@@ -22,7 +22,5 @@
 chmod +x lib/*.sh
 chmod +x ./*.sh
 
-touch config/notExistsFiles.txt
-echo "startPath=/var/log \n SHA256SUMS=SHA256SUMS" > config/settings.properies
+echo "startPath=/var/log" > config/settings.properies
 echo "localPath=[請輸入你的專案絕對路徑]" > projection.properties
-touch log/checkWbsite.log
