@@ -10,12 +10,16 @@ source $basedir/lib/createSource.sh
 source $basedir/lib/log.sh
 source $basedir/lib/properties.sh
 
+zc_log INFO "start"
+
 export startPath=$(prop 'startPath')
 export SHA256SUMS=$(prop 'SHA256SUMS')
 export findL=$(find ${startPath} -exec ls -l \{\} \; | grep -v ^d | awk '{print $9}')
 export fileL
 export listN=0
 export SHA256SUMSFile="$basedir/${SHA256SUMS}"
+
+zc_log INFO "start 2"
 
 for listI in $findL ;
 do
@@ -38,7 +42,7 @@ do
     fi
 done
 
-# echo "check ${SHA256SUMSFile}"
+zc_log INFO "start 3. check ${SHA256SUMSFile}"
 
 for fileI in ${fileL[@]}
 do
@@ -63,3 +67,6 @@ do
     fi
     
 done
+
+
+zc_log INFO "finish"
