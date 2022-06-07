@@ -14,7 +14,7 @@ zc_log INFO "start"
 
 export startPath=$(prop 'startPath')
 export SHA256SUMS=$(prop 'SHA256SUMS')
-export findL=$(find ${startPath} -exec ls -l \{\} \; | grep -v ^d | awk '{print $9}')
+export findL=$(find ${startPath})
 export fileL
 export listN=0
 export SHA256SUMSFile="$basedir/${SHA256SUMS}"
@@ -44,19 +44,17 @@ done
 
 zc_log INFO "start 3. check ${SHA256SUMSFile}"
 
+touch "${SHA256SUMSFile}"
+
 for fileI in ${fileL[@]}
 do
 
-    fileI=${fileI//"${startPath}"/""}
+    if [ -f "${fileI}" ]; then
 
-    FIND_STR="${startPath}/$fileI"
-
-    if [ -f "${FIND_STR}" ]; then
-
-        a=`grep -c "$FIND_STR" $SHA256SUMSFile`
+        a=`grep -c "$fileI" $SHA256SUMSFile`
 
         if [ "${a}" == "0" ];then
-            sha256sum ${FIND_STR} >> "${SHA256SUMSFile}"
+            sha256sum ${fileI} >> "${SHA256SUMSFile}"
             if [ $? -ne 0 ]; then
                 zc_log ERROR ""
             fi
