@@ -20,4 +20,10 @@ mkdir -p $basedir/sha256sum
 
 find ${startPath} | xargs sha256sum >> "${SHA256SUMSFile}"
 
+zc_log INFO "start tar.tgz"
+
+/bin/tar zcf "${SHA256SUMSFile}".tar.tgz "${SHA256SUMSFile}".sha256
+
+/bin/rm "${SHA256SUMSFile}".sha256
+
 zc_log INFO "finish"
