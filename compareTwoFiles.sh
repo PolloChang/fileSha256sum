@@ -1,9 +1,9 @@
 #!/bin/bash
 #===============================================================================
 #
-#          FILE:  startProject.sh
+#          FILE:  compareTwoFiles.sh
 # 
-#         USAGE:  ./startProject.sh 
+#         USAGE:  ./compareTwoFiles.sh 
 # 
 #   DESCRIPTION:  
 # 
@@ -14,13 +14,18 @@
 #        AUTHOR:  PolloChang (), jameschangwork@gmail.com
 #       COMPANY:  Open Source Corporation
 #       VERSION:  1.0
-#       CREATED:  03/03/2022 10:49:08 AM CST
+#       CREATED:  06/27/2023 10:49:08 AM CST
 #      REVISION:  ---
 #===============================================================================
 
+# 更多選項
+# diff -y --suppress-common-lines sha256sum/*.sha256
+# diff -u sha256sum/*.sha256
 
-chmod +x lib/*.sh
-chmod +x ./*.sh
-
-echo "startPath=[請輸入你要雜湊的路徑]" > config/settings.properies
-echo "localPath=[請輸入你的專案絕對路徑]" > projection.properties
+# 只比對兩個最新的檔案
+DIFF=$(diff -u `ls -t sha256sum/*.sha256 | head -2`) 
+if [ "$DIFF" != "" ] 
+then
+    echo "檔案有備更動過"
+    echo "$DIFF"
+fi

@@ -2,6 +2,13 @@
 
 fileSha256sum
 
+## 初始化專案
+
+```bash
+cd [請輸入你的專案絕對路徑]/fileSha256sum
+bash ./bin/startProject.sh
+```
+
 ## 專案環境目錄
 
 ```
@@ -13,5 +20,11 @@ fileSha256sum
 * crontab
 
 ```
-10 6 * * * /bin/bash /usr/local/bin/fileSha256sum/start.sh
+10 6 * * * /bin/bash [請輸入你的專案絕對路徑]/fileSha256sum/start.sh
+```
+
+## 比對檔案方式
+
+```bash
+./compareTwoFiles.sh
 ```

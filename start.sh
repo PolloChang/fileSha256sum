@@ -1,4 +1,4 @@
-#! /bin/bin
+#!/bin/bash
 
 function getProjectConfig {
     grep "${1}" projection.properties |cut -d'=' -f2
