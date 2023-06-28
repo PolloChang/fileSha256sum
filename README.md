@@ -6,7 +6,7 @@ fileSha256sum
 
 ```bash
 cd [請輸入你的專案絕對路徑]/fileSha256sum
-bash ./bin/startProject.sh
+./install.sh
 ```
 
 ## 專案環境目錄

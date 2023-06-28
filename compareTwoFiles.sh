@@ -26,6 +26,6 @@
 DIFF=$(diff -u `ls -t sha256sum/*.sha256 | head -2`) 
 if [ "$DIFF" != "" ] 
 then
-    echo "檔案有備更動過"
+    echo "檔案有被更動過"
     echo "$DIFF"
 fi

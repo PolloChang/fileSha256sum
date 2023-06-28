@@ -1,7 +1,6 @@
 log/*.log
-config/checkWebsitList.txt
-config/settings.properies
+config
 projection.properties
-config/notExistsFiles.txt
 *.sha256
 *.tar.tgz
+__pycache__

@@ -1,9 +1,9 @@
 #!/bin/bash
 #===============================================================================
 #
-#          FILE:  startProject.sh
+#          FILE:  install.sh
 # 
-#         USAGE:  ./startProject.sh 
+#         USAGE:  安裝專案
 # 
 #   DESCRIPTION:  
 # 
@@ -22,5 +22,14 @@
 chmod +x lib/*.sh
 chmod +x ./*.sh
 
-echo "startPath=[請輸入你要雜湊的路徑]" > config/settings.properies
-echo "localPath=[請輸入你的專案絕對路徑]" > projection.properties
+mkdir -p {log,config}
+
+# config/settings.properies
+echo startPath=[請輸入你要雜湊的路徑] > config/settings.properies
+echo mailAccount=example@example.mail.com >> config/mail.properies
+echo mailPassword=emailPassword >> config/mail.properies
+echo mailFrom=example@example.mail.com >> config/mail.properies
+echo mailTo=example@example.mail.com >> config/mail.properies
+
+# projection.properties
+echo localPath=`pwd` > projection.properties
