@@ -14,18 +14,19 @@ def main(argv):
    mailPassword = ''
    mailFrom = ''
    mailTo = ''
+   mailSubject = ''
+   mailContent = ''
 
    try:
-      opts, args = getopt.getopt(argv,"ha:p:f:t:",[
+      opts, args = getopt.getopt(argv,"ha:p:f:t:s:c:",[
          "mailAccount=","imailPassword=",
-         "mailFrom=","mailTo="
+         "mailFrom=","mailTo=",
+         "mailSubject=","mailContent="
          ])
    except getopt.GetoptError as e:
-      print(helpContent)
       logging.error(e)
       sys.exit(2)
    for opt, arg in opts:
-      print(opt)
       if opt == '-h':
          print(helpContent)
          sys.exit()
@@ -37,13 +38,17 @@ def main(argv):
          mailFrom = arg
       elif opt in ("-t", "--mailTo"):
          mailTo = arg
+      elif opt in ("-s", "--mailSubject"):
+         mailSubject = arg
+      elif opt in ("-c", "--mailContent"):
+         mailContent = arg
 
    logging.debug('mailAccount:'+mailAccount)
    logging.debug('mailPassword:'+ mailPassword)
    logging.debug('mailFrom:'+ mailFrom)
    logging.debug('mailTo:'+ mailTo)
-
-   sendmail(mailAccount,mailPassword,mailFrom,mailTo)
+   print(mailContent)
+   sendmail(mailAccount,mailPassword,mailFrom,mailTo,mailSubject,mailContent)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

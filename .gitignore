@@ -1,5 +1,6 @@
 log/*.log
 config
+mails
 projection.properties
 *.sha256
 *.tar.tgz
