@@ -38,14 +38,22 @@ export dateS=`date +%Y%m%d%H%M%S`
 export SHA256SUMS=${dateS}".sha256"
 export SHA256SUMSFile="$basedir/sha256sum/${SHA256SUMS}"
 
-sha256sumFiles $(prop 'startPath') ${SHA256SUMSFile}
+# sha256sumFiles $(prop 'startPath') ${SHA256SUMSFile}
+
+cat ${basedir}/config/fileList.txt | while read rows
+do
+  zc_log INFO "sha256 path: $rows"
+  sha256sumFiles $rows ${SHA256SUMSFile}
+done
 
 zc_log INFO "compareTwoFiles"
 
 compareTwoFiles $basedir
 
 val=$?
-# $(prop 'startPath')
+
+zc_log INFO "create mail content"
+
 insertMailContent "機關名稱=$(prop orgName)"
 insertMailContent "系統名稱=$(prop systemName)"
 insertMailContent "主機名稱=$(prop hostName)"
@@ -53,14 +61,6 @@ insertMailContent "完整性驗證=${val}"
 insertMailContent "執行開始時間=${startTime}"
 insertMailContent "執行結束時間=$(date '+%Y-%m-%d %H:%M:%S')"
 
-export latestMailPath=`ls -t ${basedir}/mails/*.mail | head -1`
-
-export mailContent=$(<$latestMailPath)
-
-zc_log INFO "sendMail"
-
-export mailSubject="$(prop orgName)-$(prop systemName)-$(prop hostName)-完整性驗證"
-echo ${mailContent}
-$basedir/sendMail.py -a $(prop mailAccount) -p $(prop mailPassword) -f $(prop mailFrom) -t $(prop mailTo) -s ${mailSubject} -c ${mailContent}
+mv ${mail} $basedir/mails/$(prop orgName)-$(prop systemName)-$(prop hostName)-完整性驗證."`date +%Y%m%d%H%M%S`".mail
 
 zc_log INFO "finish"

@@ -1,11 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# 寄信功能
+
 import sys, logging ,getopt
 
-from lib.mail import sendmail
+from mail import sendmail
 
-helpContent="sendMail.py -a <mailAccount> -p <mailPassword> -f <mailFrom> -t <mailTo>"
+helpContent="sendMail.py -a <mailAccount> -p <mailPassword> -f <mailFrom> -t <mailTo> -s <latestMailPath>"
 logging.basicConfig(stream=sys.stderr, encoding='utf-8',level=logging.DEBUG,format='%(asctime)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
 
 def main(argv):
@@ -14,8 +16,6 @@ def main(argv):
    mailPassword = ''
    mailFrom = ''
    mailTo = ''
-   mailSubject = ''
-   mailContent = ''
 
    try:
       opts, args = getopt.getopt(argv,"ha:p:f:t:s:c:",[
@@ -38,17 +38,10 @@ def main(argv):
          mailFrom = arg
       elif opt in ("-t", "--mailTo"):
          mailTo = arg
-      elif opt in ("-s", "--mailSubject"):
-         mailSubject = arg
-      elif opt in ("-c", "--mailContent"):
-         mailContent = arg
-
-   logging.debug('mailAccount:'+mailAccount)
-   logging.debug('mailPassword:'+ mailPassword)
-   logging.debug('mailFrom:'+ mailFrom)
-   logging.debug('mailTo:'+ mailTo)
-   print(mailContent)
-   sendmail(mailAccount,mailPassword,mailFrom,mailTo,mailSubject,mailContent)
+      elif opt in ("-s", "--latestMailPath"):
+         latestMailPath = arg
+         
+   sendmail(mailAccount,mailPassword,mailFrom,mailTo,latestMailPath)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

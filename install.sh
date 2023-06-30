@@ -34,5 +34,7 @@ echo orgName=exampleOrg >> config/mail.properies
 echo systemName=exampleSystem >> config/mail.properies
 echo hostName=$(hostname) >> config/mail.properies
 
+echo 輸入要檢核的路徑，記得最後多劉一行空行 >> config/fileList.txt
+
 # projection.properties
 echo localPath=`pwd` > projection.properties

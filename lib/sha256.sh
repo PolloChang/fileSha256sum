@@ -21,6 +21,6 @@
 function sha256sumFiles(){
   export startPath=${1}
   export SHA256SUMSFile=${2}
-  find ${startPath} | xargs sha256sum >> "${SHA256SUMSFile}"
+  find ${startPath} -type f | xargs sha256sum >> "${SHA256SUMSFile}"
 }
 
