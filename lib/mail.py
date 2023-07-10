@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 import sys, logging
+import smtplib
 
 
 logging.basicConfig(stream=sys.stderr, encoding='utf-8',level=logging.INFO,format='%(asctime)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
@@ -28,7 +29,6 @@ def sendmail(mailAccount,mailPassword,mailFrom,mailTo,latestMailPath):
    logging.debug("mailSubject: "+mailSubject)
    logging.debug("mailContent: "+mailContent)
 
-   import smtplib
    with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:  # 設定SMTP伺服器
       try:
          smtp.ehlo()  # 驗證SMTP伺服器

@@ -54,12 +54,12 @@ val=$?
 
 zc_log INFO "create mail content"
 
-insertMailContent "機關名稱=$(prop orgName)"
-insertMailContent "系統名稱=$(prop systemName)"
-insertMailContent "主機名稱=$(prop hostName)"
-insertMailContent "完整性驗證=${val}"
-insertMailContent "執行開始時間=${startTime}"
-insertMailContent "執行結束時間=$(date '+%Y-%m-%d %H:%M:%S')"
+insertMailContent "機關名稱=\"$(prop orgName)\""
+insertMailContent "系統名稱=\"$(prop systemName)\""
+insertMailContent "主機名稱=\"$(prop hostName)\""
+insertMailContent "完整性驗證=\"${val}\""
+insertMailContent "執行開始時間=\"${startTime}\""
+insertMailContent "執行結束時間=\"$(date '+%Y-%m-%d %H:%M:%S')\""
 
 mv ${mail} $basedir/mails/$(prop orgName)-$(prop systemName)-$(prop hostName)-完整性驗證."`date +%Y%m%d%H%M%S`".mail
 
